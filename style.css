@@ -270,11 +270,6 @@ select:focus {
     color: var(--carb-color);
 }
 
-text-align: center;
-position: relative;
-overflow: hidden;
-}
-
 .macro-card h3 {
     font-size: 0.9rem;
     color: var(--text-secondary);
@@ -496,7 +491,9 @@ select:focus {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--accent-color);
-}/* Macro Icons */
+}
+
+/* Macro Icons */
 .macro-header {
     display: flex;
     align-items: center;
@@ -538,6 +535,7 @@ select:focus {
     margin-top: 4px;
     display: block;
 }
+
 /* Responsive Improvements */
 
 /* Ajustes para tablets */
@@ -652,6 +650,7 @@ select:focus {
         font-size: 1.1rem;
     }
 }
+
 /* Fix for macro card text overflow */
 .macro-card {
     min-width: 0;
