@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastreador de Macros</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="toggle.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Rastreador Diario</h1>
+
+            <button id="menu-toggle" class="menu-toggle" aria-label="Menú">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" class="nav-link active">📊 Hoy</a>
+                <a href="history.html" class="nav-link">📅 Historial</a>
+                <a href="setup.html" class="nav-link">⚙️ Configuración</a>
+                <a href="about.html" class="nav-link">ℹ️ Info</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="edit-profile-btn" class="icon-btn" title="Editar perfil">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </button>
+                <button id="reset-btn" class="icon-btn" title="Reiniciar día">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <section id="progress-section">
+            <!-- Injected by MacroProgress.js -->
+        </section>
+
+        <section class="input-section">
+            <h2>Selecciona Alimento</h2>
+            <form id="food-form">
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="food-select">🔍 Buscar y Seleccionar Alimento</label>
+                        <input type="text" id="food-select" list="food-options"
+                            placeholder="Escribe para buscar o selecciona..." autocomplete="off">
+                        <datalist id="food-options">
+                            <!-- Populated by JS -->
+                        </datalist>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="food-quantity">Cantidad</label>
+                        <div style="display: flex; gap: 5px; align-items: center;">
+                            <input type="number" id="food-quantity" placeholder="0">
+                            <select id="unit-select" style="width: 80px; padding: 5px;">
+                                <option value="g">g</option>
+                                <option value="unidad">ud</option>
+                                <option value="ml">ml</option>
+                            </select>
+                            <span id="unit-display"
+                                style="display: none; padding: 5px; color: var(--text-secondary); font-size: 0.9rem;">g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="food-name">Nombre (Editable)</label>
+                    <input type="text" id="food-name" placeholder="Ej. Pechuga de pollo" required>
+                </div>
+
+                <div class="form-group" id="category-group" style="display: none;">
+                    <label for="food-category">Guardar en Categoría</label>
+                    <select id="food-category">
+                        <option value="carnes">Carnes y Aves</option>
+                        <option value="pescados">Pescados y Mariscos</option>
+                        <option value="lacteos">Lácteos y Sustitutos</option>
+                        <option value="frutas">Frutas</option>
+                        <option value="granos">Granos y Cereales</option>
+                        <option value="verduras">Verduras</option>
+                        <option value="bebidas">Bebidas</option>
+                        <option value="personalizado">Personalizados</option>
+                    </select>
+                </div>
+
+                <div class="macros-grid">
+                    <div class="form-group">
+                        <label for="calories">Kcal</label>
+                        <input type="number" id="calories" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="protein">Prot (g)</label>
+                        <input type="number" id="protein" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="carbs">Carb (g)</label>
+                        <input type="number" id="carbs" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fats">Grasa (g)</label>
+                        <input type="number" id="fats" placeholder="0" required>
+                    </div>
+                </div>
+                <button type="submit" class="add-btn">Agregar</button>
+            </form>
+        </section>
+
+        <section class="list-section">
+            <div class="section-header">
+                <h2>Historial de Hoy</h2>
+                <button id="toggle-history" class="toggle-btn" title="Mostrar/Ocultar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <ul id="food-list" class="collapsible-content">
+                <!-- Injected by FoodList.js -->
+            </ul>
+        </section>
+    </div>
+
+    <script src="src/utils/dateStorage.js"></script>
+    <script src="src/data/foods.js?v=8"></script>
+    <script src="src/components/FoodList.js"></script>
+    <script src="src/components/MacroProgress.js"></script>
+    <script src="src/components/FoodInput.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+# Archivos temporales
+*.tmp
+*.txt
+pwa-meta.txt
+sw-register.txt
+temp-*.css
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

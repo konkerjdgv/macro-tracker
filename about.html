@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información - Rastreador de Macros</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .info-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .info-section h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        .info-section h3 {
+            color: var(--text-primary);
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .formula {
+            background: rgba(98, 0, 234, 0.1);
+            border-left: 3px solid var(--accent-color);
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .info-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .info-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <a href="index.html" class="back-btn" title="Volver">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </a>
+                <h1>Información</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">📊 Hoy</a>
+                <a href="history.html" class="nav-link">📅 Historial</a>
+                <a href="setup.html" class="nav-link">⚙️ Configuración</a>
+                <a href="about.html" class="nav-link active">ℹ️ Info</a>
+            </nav>
+        </header>
+
+        <div class="info-container">
+            <div class="info-section">
+                <h2>📊 Cómo Calculamos tus Requerimientos</h2>
+                <p>Esta aplicación utiliza fórmulas científicamente validadas para calcular tus necesidades
+                    nutricionales personalizadas.</p>
+            </div>
+
+            <div class="info-section">
+                <h2>🔥 Cálculo de Calorías</h2>
+
+                <h3>1. Tasa Metabólica Basal (TMB)</h3>
+                <p>Utilizamos la <span class="highlight">Ecuación de Mifflin-St Jeor</span>, considerada la más precisa:
+                </p>
+
+                <div class="formula">
+                    <strong>Hombres:</strong> TMB = (10 × peso) + (6.25 × altura) - (5 × edad) + 5<br>
+                    <strong>Mujeres:</strong> TMB = (10 × peso) + (6.25 × altura) - (5 × edad) - 161
+                </div>
+
+                <p><em>Donde: peso en kg, altura en cm, edad en años</em></p>
+
+                <h3>2. Gasto Energético Total Diario (TDEE)</h3>
+                <p>Multiplicamos tu TMB por un factor de actividad:</p>
+
+                <ul class="info-list">
+                    <li><strong>Sedentario:</strong> TMB × 1.2 (poco o ningún ejercicio)</li>
+                    <li><strong>Ligero:</strong> TMB × 1.375 (ejercicio 1-3 días/semana)</li>
+                    <li><strong>Moderado:</strong> TMB × 1.55 (ejercicio 3-5 días/semana)</li>
+                    <li><strong>Intenso:</strong> TMB × 1.725 (ejercicio 6-7 días/semana)</li>
+                    <li><strong>Muy Intenso:</strong> TMB × 1.9 (atleta/trabajo físico)</li>
+                </ul>
+
+                <h3>3. Ajuste por Objetivo</h3>
+                <ul class="info-list">
+                    <li><strong>Pérdida de peso:</strong> TDEE - 500 kcal (déficit moderado)</li>
+                    <li><strong>Mantenimiento:</strong> TDEE (sin cambios)</li>
+                    <li><strong>Ganancia muscular:</strong> TDEE + 300 kcal (superávit controlado)</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h2>🥩 Cálculo de Proteínas</h2>
+                <p>La proteína es esencial para mantener y construir masa muscular.</p>
+
+                <div class="formula">
+                    <strong>Mantenimiento:</strong> 1.6 g/kg de peso corporal<br>
+                    <strong>Pérdida/Ganancia:</strong> 2.0 g/kg de peso corporal
+                </div>
+
+                <p><strong>Ejemplo:</strong> Una persona de 70 kg en pérdida de peso necesita: 70 × 2.0 = <span
+                        class="highlight">140g de proteína</span></p>
+            </div>
+
+            <div class="info-section">
+                <h2>🥑 Cálculo de Grasas</h2>
+                <p>Las grasas son importantes para la salud hormonal y absorción de vitaminas.</p>
+
+                <div class="formula">
+                    Grasas = 27% de las calorías totales ÷ 9 kcal/g
+                </div>
+
+                <p><strong>Ejemplo:</strong> Para 2000 kcal: (2000 × 0.27) ÷ 9 = <span class="highlight">60g de
+                        grasas</span></p>
+            </div>
+
+            <div class="info-section">
+                <h2>🍞 Cálculo de Carbohidratos</h2>
+                <p>Los carbohidratos llenan las calorías restantes después de proteínas y grasas.</p>
+
+                <div class="formula">
+                    Carbohidratos = (Calorías totales - Calorías de proteína - Calorías de grasa) ÷ 4 kcal/g
+                </div>
+
+                <p><strong>Nota:</strong> 1g de proteína = 4 kcal, 1g de grasa = 9 kcal, 1g de carbohidrato = 4 kcal</p>
+            </div>
+
+            <div class="info-section">
+                <h2>📝 Ejemplo Completo</h2>
+                <p><strong>Perfil:</strong> Hombre, 30 años, 75 kg, 175 cm, actividad moderada, objetivo: pérdida de
+                    peso</p>
+
+                <ul class="info-list">
+                    <li><strong>TMB:</strong> (10×75) + (6.25×175) - (5×30) + 5 = 1,700 kcal</li>
+                    <li><strong>TDEE:</strong> 1,700 × 1.55 = 2,635 kcal</li>
+                    <li><strong>Objetivo:</strong> 2,635 - 500 = <span class="highlight">2,135 kcal/día</span></li>
+                    <li><strong>Proteína:</strong> 75 × 2.0 = <span class="highlight">150g</span> (600 kcal)</li>
+                    <li><strong>Grasas:</strong> (2,135 × 0.27) ÷ 9 = <span class="highlight">64g</span> (576 kcal)</li>
+                    <li><strong>Carbohidratos:</strong> (2,135 - 600 - 576) ÷ 4 = <span class="highlight">240g</span>
+                        (960 kcal)</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h2>⚠️ Importante</h2>
+                <p>Estos cálculos son estimaciones basadas en fórmulas estándar. Los resultados individuales pueden
+                    variar. Consulta con un profesional de la salud antes de hacer cambios significativos en tu dieta.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
