@@ -14,6 +14,12 @@ function loadExistingProfile() {
         document.getElementById('height').value = profile.height || '';
         document.getElementById('activity').value = profile.activity || '';
         document.getElementById('goal').value = profile.goal || '';
+
+        // Change button text to "Actualizar Información"
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.textContent = 'Actualizar Información';
+        }
     }
 }
 
