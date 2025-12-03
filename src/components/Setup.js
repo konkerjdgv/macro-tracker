@@ -35,6 +35,9 @@ form.addEventListener('submit', (e) => {
     // Save to localStorage
     localStorage.setItem('userProfile', JSON.stringify(profile));
 
+    // Show success message
+    alert('¡Datos guardados correctamente!');
+
     // Redirect to main page
     window.location.href = 'index.html';
 });
