@@ -1,105 +1,91 @@
 <!DOCTYPE html>
-<html lang="es">
+max-width: 900px;
+margin: 0 auto;
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial - Rastreador de Macros</title>
-    <link rel="stylesheet" href="style.css?v=1.1.1">
-    <link rel="stylesheet" href="toggle.css?v=1.1.1">
-    <link rel="stylesheet" href="nav.css?v=1.1.1">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        .history-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+.month-group,
+.week-group,
+.day-item {
+background: var(--card-bg);
+border-radius: var(--radius);
+margin-bottom: 12px;
+overflow: hidden;
+}
 
-        .month-group,
-        .week-group,
-        .day-item {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            margin-bottom: 12px;
-            overflow: hidden;
-        }
+.group-header {
+padding: 16px;
+cursor: pointer;
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: background 0.2s;
+}
 
-        .group-header {
-            padding: 16px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.2s;
-        }
+.group-header:hover {
+background: rgba(255, 255, 255, 0.05);
+}
 
-        .group-header:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
+.group-title {
+font-weight: 600;
+font-size: 1.1rem;
+}
 
-        .group-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
+.group-stats {
+display: flex;
+gap: 16px;
+font-size: 0.85rem;
+color: var(--text-secondary);
+}
 
-        .group-stats {
-            display: flex;
-            gap: 16px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
+.group-content {
+padding: 0 16px 16px 16px;
+display: none;
+}
 
-        .group-content {
-            padding: 0 16px 16px 16px;
-            display: none;
-        }
+.group-content.expanded {
+display: block;
+}
 
-        .group-content.expanded {
-            display: block;
-        }
+.day-header {
+padding: 12px 16px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
 
-        .day-header {
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.day-date {
+font-weight: 600;
+}
 
-        .day-date {
-            font-weight: 600;
-        }
+.day-totals {
+display: flex;
+gap: 12px;
+font-size: 0.85rem;
+}
 
-        .day-totals {
-            display: flex;
-            gap: 12px;
-            font-size: 0.85rem;
-        }
+.recent-days {
+margin-bottom: 24px;
+}
 
-        .recent-days {
-            margin-bottom: 24px;
-        }
+.section-title {
+font-size: 1.2rem;
+margin-bottom: 16px;
+color: var(--text-secondary);
+}
 
-        .section-title {
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-            color: var(--text-secondary);
-        }
+.empty-state {
+text-align: center;
+padding: 60px 20px;
+color: var(--text-secondary);
+}
 
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
-        }
-
-        .empty-state svg {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-    </style>
+.empty-state svg {
+width: 64px;
+height: 64px;
+margin-bottom: 16px;
+opacity: 0.5;
+}
+</style>
 </head>
 
 <body>
@@ -129,7 +115,7 @@
             </div>
         </div>
 
-        <div class="app-version">v1.1.1</div>
+        <div class="app-version">v1.1.2</div>
     </div>
 
     <script src="src/utils/dateStorage.js"></script>
