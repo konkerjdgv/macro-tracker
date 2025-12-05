@@ -127,8 +127,37 @@
             <div class="section-header">
                 <h2>Historial de Hoy</h2>
                 <button id="toggle-history" class="toggle-btn" title="Mostrar/Ocultar">
-                    <script src="src/components/FoodInput.js"></script>
-                    <script src="main.js"></script>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <ul id="food-list" class="collapsible-content">
+                <!-- Injected by FoodList.js -->
+            </ul>
+        </section>
+
+        <div class="app-version">v1.1.0</div>
+    </div>
+
+    <script src="src/utils/dateStorage.js"></script>
+    <script src="src/data/foods.js?v=8"></script>
+    <script src="src/components/FoodList.js"></script>
+    <script src="src/components/MacroProgress.js"></script>
+    <script src="src/components/FoodInput.js"></script>
+    <script src="main.js"></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registrado'))
+                    .catch(err => console.log('Error al registrar Service Worker:', err));
+            });
+        }
+    </script>
 </body>
 
 </html>
