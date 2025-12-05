@@ -1,59 +1,73 @@
 <!DOCTYPE html>
-margin: 0 auto;
-}
+<html lang="es">
 
-.info-section {
-background: var(--card-bg);
-border-radius: var(--radius);
-padding: 24px;
-margin-bottom: 20px;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información - Rastreador de Macros</title>
+    <link rel="stylesheet" href="style.css?v=1.1.2">
+    <link rel="stylesheet" href="nav.css?v=1.1.2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .info-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-.info-section h2 {
-color: var(--accent-color);
-margin-top: 0;
-margin-bottom: 16px;
-}
+        .info-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
 
-.info-section h3 {
-color: var(--text-primary);
-margin-top: 20px;
-margin-bottom: 12px;
-font-size: 1.1rem;
-}
+        .info-section h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
 
-.formula {
-background: rgba(98, 0, 234, 0.1);
-border-left: 3px solid var(--accent-color);
-padding: 12px 16px;
-margin: 12px 0;
-border-radius: 4px;
-font-family: 'Courier New', monospace;
-}
+        .info-section h3 {
+            color: var(--text-primary);
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
 
-.info-list {
-list-style: none;
-padding-left: 0;
-}
+        .formula {
+            background: rgba(98, 0, 234, 0.1);
+            border-left: 3px solid var(--accent-color);
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
 
-.info-list li {
-padding: 8px 0;
-padding-left: 24px;
-position: relative;
-}
+        .info-list {
+            list-style: none;
+            padding-left: 0;
+        }
 
-.info-list li:before {
-content: "→";
-position: absolute;
-left: 0;
-color: var(--accent-color);
-}
+        .info-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
 
-.highlight {
-color: var(--accent-color);
-font-weight: 600;
-}
-</style>
+        .info-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>

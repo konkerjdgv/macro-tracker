@@ -1,91 +1,105 @@
 <!DOCTYPE html>
-max-width: 900px;
-margin: 0 auto;
-}
+<html lang="es">
 
-.month-group,
-.week-group,
-.day-item {
-background: var(--card-bg);
-border-radius: var(--radius);
-margin-bottom: 12px;
-overflow: hidden;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial - Rastreador de Macros</title>
+    <link rel="stylesheet" href="style.css?v=1.1.2">
+    <link rel="stylesheet" href="toggle.css?v=1.1.2">
+    <link rel="stylesheet" href="nav.css?v=1.1.2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .history-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-.group-header {
-padding: 16px;
-cursor: pointer;
-display: flex;
-justify-content: space-between;
-align-items: center;
-transition: background 0.2s;
-}
+        .month-group,
+        .week-group,
+        .day-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
 
-.group-header:hover {
-background: rgba(255, 255, 255, 0.05);
-}
+        .group-header {
+            padding: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
 
-.group-title {
-font-weight: 600;
-font-size: 1.1rem;
-}
+        .group-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
 
-.group-stats {
-display: flex;
-gap: 16px;
-font-size: 0.85rem;
-color: var(--text-secondary);
-}
+        .group-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
 
-.group-content {
-padding: 0 16px 16px 16px;
-display: none;
-}
+        .group-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
 
-.group-content.expanded {
-display: block;
-}
+        .group-content {
+            padding: 0 16px 16px 16px;
+            display: none;
+        }
 
-.day-header {
-padding: 12px 16px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
+        .group-content.expanded {
+            display: block;
+        }
 
-.day-date {
-font-weight: 600;
-}
+        .day-header {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.day-totals {
-display: flex;
-gap: 12px;
-font-size: 0.85rem;
-}
+        .day-date {
+            font-weight: 600;
+        }
 
-.recent-days {
-margin-bottom: 24px;
-}
+        .day-totals {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+        }
 
-.section-title {
-font-size: 1.2rem;
-margin-bottom: 16px;
-color: var(--text-secondary);
-}
+        .recent-days {
+            margin-bottom: 24px;
+        }
 
-.empty-state {
-text-align: center;
-padding: 60px 20px;
-color: var(--text-secondary);
-}
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
 
-.empty-state svg {
-width: 64px;
-height: 64px;
-margin-bottom: 16px;
-opacity: 0.5;
-}
-</style>
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+    </style>
 </head>
 
 <body>
@@ -204,50 +218,54 @@ opacity: 0.5;
             container.innerHTML = html;
         }
 
-        function renderWeekGroups(dates) {
-            const weekGroups = groupByWeek(dates);
-            let html = '';
-
-            Object.keys(weekGroups).sort().reverse().forEach(weekStart => {
-                const weekDates = weekGroups[weekStart];
-                const weekAvg = calculateAverage(weekDates);
-
-                html += `
-                    <div class="week-group">
-                        <div class="group-header" onclick="toggleGroup(this)">
-                            <span class="group-title">Semana ${formatWeekRange(weekStart, weekDates)}</span>
-                            <div class="group-stats">
-                                <span>${weekDates.length} días</span>
-                                <span class="color-cal">${weekAvg.calories} kcal/día</span>
-                            </div>
-                        </div>
-                        <div class="group-content">
-                            ${weekDates.map(date => renderDayItem(date)).join('')}
-                        </div>
-                    </div>
-                `;
+        function groupByMonth(dates) {
+            const groups = {};
+            dates.forEach(date => {
+                const monthKey = date.substring(0, 7); // YYYY-MM
+                if (!groups[monthKey]) groups[monthKey] = [];
+                groups[monthKey].push(date);
             });
+            return groups;
+        }
 
-            return html;
+        function renderWeekGroups(dates) {
+            // Simple weekly grouping logic could go here
+            // For now just list days
+            return dates.map(date => renderDayItem(date)).join('');
         }
 
         function renderDayItem(date) {
-            const totals = calculateDailyTotals(date);
-            const isToday = date === getCurrentDate();
+            const foods = JSON.parse(localStorage.getItem(`foods_${date}`)) || [];
+            const totals = foods.reduce((acc, food) => {
+                acc.calories += Number(food.calories);
+                acc.protein += Number(food.protein);
+                acc.carbs += Number(food.carbs);
+                acc.fats += Number(food.fats);
+                return acc;
+            }, { calories: 0, protein: 0, carbs: 0, fats: 0 });
 
             return `
                 <div class="day-item">
                     <div class="day-header">
-                        <span class="day-date">${formatDate(date)}${isToday ? ' (Hoy)' : ''}</span>
+                        <span class="day-date">${formatDate(date)}</span>
                         <div class="day-totals">
-                            <span class="color-cal">${totals.calories} kcal</span>
-                            <span class="color-prot">${totals.protein}g P</span>
-                            <span class="color-carb">${totals.carbs}g C</span>
-                            <span class="color-fat">${totals.fats}g G</span>
+                            <span class="color-cal">${Math.round(totals.calories)} kcal</span>
+                            <span class="color-prot">${Math.round(totals.protein)}p</span>
+                            <span class="color-carb">${Math.round(totals.carbs)}c</span>
+                            <span class="color-fat">${Math.round(totals.fats)}f</span>
                         </div>
                     </div>
                 </div>
             `;
+        }
+
+        function calculateAverage(dates) {
+            let totalCal = 0;
+            dates.forEach(date => {
+                const foods = JSON.parse(localStorage.getItem(`foods_${date}`)) || [];
+                foods.forEach(f => totalCal += Number(f.calories));
+            });
+            return { calories: Math.round(totalCal / dates.length) };
         }
 
         function toggleGroup(header) {
@@ -256,7 +274,7 @@ opacity: 0.5;
         }
 
         // Initialize
-        renderHistory();
+        document.addEventListener('DOMContentLoaded', renderHistory);
     </script>
 </body>
 
