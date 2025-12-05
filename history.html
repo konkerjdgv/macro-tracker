@@ -118,136 +118,123 @@
             <nav class="main-nav">
                 <a href="index.html" class="nav-link">📊 Hoy</a>
                 <a href="history.html" class="nav-link active">📅 Historial</a>
-                <a href="setup.html" class="nav-link">⚙️ Configuración</a>
-                <a href="about.html" class="nav-link">ℹ️ Info</a>
-            </nav>
-        </header>
+                function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                return date.toLocaleDateString('es-ES', options);
+                }
 
-        <div class="history-container">
-            <div id="history-content">
-                <!-- Populated by JS -->
-            </div>
-        </div>
-    </div>
+                function formatMonthYear(monthKey) {
+                const [year, month] = monthKey.split('-');
+                const date = new Date(year, parseInt(month) - 1);
+                return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
+                }
 
-    <script src="src/utils/dateStorage.js"></script>
-    <script src="src/data/foods.js?v=8"></script>
-    <script>
-        // History page logic
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('es-ES', options);
-        }
+                function formatWeekRange(weekStart, dates) {
+                const start = new Date(weekStart);
+                const end = new Date(dates[dates.length - 1]);
+                return `${start.getDate()}-${end.getDate()} ${start.toLocaleDateString('es-ES', { month: 'short' })}`;
+                }
 
-        function formatMonthYear(monthKey) {
-            const [year, month] = monthKey.split('-');
-            const date = new Date(year, parseInt(month) - 1);
-            return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
-        }
+                function renderHistory() {
+                const container = document.getElementById('history-content');
+                const allDates = getAllDates();
 
-        function formatWeekRange(weekStart, dates) {
-            const start = new Date(weekStart);
-            const end = new Date(dates[dates.length - 1]);
-            return `${start.getDate()}-${end.getDate()} ${start.toLocaleDateString('es-ES', { month: 'short' })}`;
-        }
-
-        function renderHistory() {
-            const container = document.getElementById('history-content');
-            const allDates = getAllDates();
-
-            if (allDates.length === 0) {
+                if (allDates.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-state">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                        <h3>No hay datos históricos</h3>
-                        <p>Comienza a registrar tus alimentos para ver tu historial aquí</p>
-                    </div>
+                <div class="empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <h3>No hay datos históricos</h3>
+                    <p>Comienza a registrar tus alimentos para ver tu historial aquí</p>
+                </div>
                 `;
                 return;
-            }
+                }
 
-            // Separate recent days (last 7) from older
-            const recentDays = allDates.slice(0, 7);
-            const olderDates = allDates.slice(7);
+                // Separate recent days (last 7) from older
+                const recentDays = allDates.slice(0, 7);
+                const olderDates = allDates.slice(7);
 
-            let html = '';
+                let html = '';
 
-            // Recent days section
-            if (recentDays.length > 0) {
-                html += '<div class="recent-days"><h2 class="section-title">Últimos 7 días</h2>';
-                recentDays.forEach(date => {
+                // Recent days section
+                if (recentDays.length > 0) {
+                html += '<div class="recent-days">
+                    <h2 class="section-title">Últimos 7 días</h2>';
+                    recentDays.forEach(date => {
                     html += renderDayItem(date);
-                });
-                html += '</div>';
-            }
+                    });
+                    html += '
+                </div>';
+                }
 
-            // Grouped by month
-            if (olderDates.length > 0) {
+                // Grouped by month
+                if (olderDates.length > 0) {
                 html += '<h2 class="section-title">Historial anterior</h2>';
                 const monthGroups = groupByMonth(olderDates);
 
                 Object.keys(monthGroups).sort().reverse().forEach(monthKey => {
-                    const monthDates = monthGroups[monthKey];
-                    const monthAvg = calculateAverage(monthDates);
+                const monthDates = monthGroups[monthKey];
+                const monthAvg = calculateAverage(monthDates);
 
-                    html += `
-                        <div class="month-group">
-                            <div class="group-header" onclick="toggleGroup(this)">
-                                <span class="group-title">📅 ${formatMonthYear(monthKey)}</span>
-                                <div class="group-stats">
-                                    <span>${monthDates.length} días</span>
-                                    <span class="color-cal">${monthAvg.calories} kcal/día</span>
-                                </div>
-                            </div>
-                            <div class="group-content">
-                                ${renderWeekGroups(monthDates)}
-                            </div>
+                html += `
+                <div class="month-group">
+                    <div class="group-header" onclick="toggleGroup(this)">
+                        <span class="group-title">📅 ${formatMonthYear(monthKey)}</span>
+                        <div class="group-stats">
+                            <span>${monthDates.length} días</span>
+                            <span class="color-cal">${monthAvg.calories} kcal/día</span>
                         </div>
-                    `;
+                    </div>
+                    <div class="group-content">
+                        ${renderWeekGroups(monthDates)}
+                    </div>
+                </div>
+                `;
                 });
-            }
+                }
 
-            container.innerHTML = html;
-        }
+                container.innerHTML = html;
+                }
 
-        function renderWeekGroups(dates) {
-            const weekGroups = groupByWeek(dates);
-            let html = '';
+                function renderWeekGroups(dates) {
+                const weekGroups = groupByWeek(dates);
+                let html = '';
 
-            Object.keys(weekGroups).sort().reverse().forEach(weekStart => {
+                Object.keys(weekGroups).sort().reverse().forEach(weekStart => {
                 const weekDates = weekGroups[weekStart];
                 const weekAvg = calculateAverage(weekDates);
 
                 html += `
-                    <div class="week-group">
-                        <div class="group-header" onclick="toggleGroup(this)">
-                            <span class="group-title">Semana ${formatWeekRange(weekStart, weekDates)}</span>
-                            <div class="group-stats">
-                                <span>${weekDates.length} días</span>
-                                <span class="color-cal">${weekAvg.calories} kcal/día</span>
-                            </div>
-                        </div>
-                        <div class="group-content">
-                            ${weekDates.map(date => renderDayItem(date)).join('')}
+                <div class="week-group">
+                    <div class="group-header" onclick="toggleGroup(this)">
+                        <span class="group-title">Semana ${formatWeekRange(weekStart, weekDates)}</span>
+                        <div class="group-stats">
+                            <span>${weekDates.length} días</span>
+                            <span class="color-cal">${weekAvg.calories} kcal/día</span>
                         </div>
                     </div>
+                    <div class="group-content">
+                        ${weekDates.map(date => renderDayItem(date)).join('')}
+                    </div>
+                </div>
                 `;
-            });
+                });
 
-            return html;
-        }
+                return html;
+                }
 
-        function renderDayItem(date) {
-            const totals = calculateDailyTotals(date);
-            const isToday = date === getCurrentDate();
+                function renderDayItem(date) {
+                const totals = calculateDailyTotals(date);
+                const isToday = date === getCurrentDate();
 
-            return `
+                return `
                 <div class="day-item">
                     <div class="day-header">
                         <span class="day-date">${formatDate(date)}${isToday ? ' (Hoy)' : ''}</span>
@@ -259,17 +246,17 @@
                         </div>
                     </div>
                 </div>
-            `;
-        }
+                `;
+                }
 
-        function toggleGroup(header) {
-            const content = header.nextElementSibling;
-            content.classList.toggle('expanded');
-        }
+                function toggleGroup(header) {
+                const content = header.nextElementSibling;
+                content.classList.toggle('expanded');
+                }
 
-        // Initialize
-        renderHistory();
-    </script>
+                // Initialize
+                renderHistory();
+                </script>
 </body>
 
 </html>
