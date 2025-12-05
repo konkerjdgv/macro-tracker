@@ -5,7 +5,9 @@
  */
 function getCurrentDate() {
     const now = new Date();
-    return now.toISOString().split('T')[0];
+    const offset = now.getTimezoneOffset() * 60000;
+    const localIso = new Date(now.getTime() - offset).toISOString();
+    return localIso.split('T')[0];
 }
 
 /**
