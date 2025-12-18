@@ -26,7 +26,32 @@ class FoodItem {
     required this.fats,
     required this.category,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'calories': calories,
+      'protein': protein,
+      'carbs': carbs,
+      'fats': fats,
+      'category': category.index,
+    };
+  }
+
+  factory FoodItem.fromMap(Map<String, dynamic> map) {
+    return FoodItem(
+      name: map['name'],
+      calories: map['calories'],
+      protein: map['protein'],
+      carbs: map['carbs'],
+      fats: map['fats'],
+      category: FoodCategory.values[map['category']],
+    );
+  }
 }
+
+// Global list of custom foods
+List<FoodItem> customFoods = [];
 
 // Map of categories to specific foods
 final Map<FoodCategory, List<FoodItem>> categorizedFoods = {
@@ -60,4 +85,11 @@ final Map<FoodCategory, List<FoodItem>> categorizedFoods = {
   ],
   FoodCategory.others: [],
 };
+
+// Helper to get all foods including custom ones
+List<FoodItem> getFoodsByCategory(FoodCategory category) {
+  List<FoodItem> list = List.from(categorizedFoods[category] ?? []);
+  list.addAll(customFoods.where((f) => f.category == category));
+  return list;
+}
 

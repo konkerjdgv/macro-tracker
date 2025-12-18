@@ -59,15 +59,52 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                    _buildActionButton(
                     context, 
-                    "Configurar Metas", 
-                    Icons.settings, 
-                    Colors.grey, 
+                    "Historial", 
+                    Icons.history, 
+                    Colors.orange, 
                     () async {
-                       await Navigator.pushNamed(context, '/settings');
+                       await Navigator.pushNamed(context, '/history');
                        setState(() {});
                     }
                   ),
+                   _buildActionButton(
+                    context, 
+                    "Terminar Día", 
+                    Icons.check_circle, 
+                    Colors.green, 
+                    () async {
+                       bool? confirm = await showDialog<bool>(
+                         context: context,
+                         builder: (context) => AlertDialog(
+                           title: const Text("¿Terminar Día?"),
+                           content: const Text("Esto guardará tu resumen actual en el historial y reiniciará el contador."),
+                           actions: [
+                             TextButton(onPressed: () => Navigator.pop(context, false), child: const Text("CANCELAR")),
+                             ElevatedButton(onPressed: () => Navigator.pop(context, true), child: const Text("CONFIRMAR")),
+                           ],
+                         )
+                       );
+                       
+                       if (confirm == true) {
+                         dailyIntake.completeDay();
+                         await StorageService.saveHistory();
+                         await StorageService.saveDailyIntake();
+                         setState(() {});
+                       }
+                    }
+                  ),
                 ],
+              ),
+              const SizedBox(height: 20),
+              _buildActionButton(
+                context, 
+                "Configuración", 
+                Icons.settings, 
+                Colors.grey, 
+                () async {
+                   await Navigator.pushNamed(context, '/settings');
+                   setState(() {});
+                }
               ),
             ],
           ),

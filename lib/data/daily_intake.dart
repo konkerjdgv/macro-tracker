@@ -10,6 +10,7 @@ class DailyIntake {
   DailyIntake._internal();
 
   List<FoodItem> foodsConsumed = [];
+  List<Map<String, dynamic>> dailyHistory = []; // Stores history of days
 
   // Add food to the list
   void addFood(FoodItem food) {
@@ -19,6 +20,23 @@ class DailyIntake {
   // Clear daily intake
   void clear() {
     foodsConsumed.clear();
+  }
+
+  // Finalize current day and move to history
+  void completeDay() {
+    if (foodsConsumed.isEmpty) return;
+    
+    final daySummary = {
+      'date': DateTime.now().toIso8601String(),
+      'calories': totalCalories,
+      'protein': totalProtein,
+      'carbs': totalCarbs,
+      'fats': totalFats,
+      'foods': foodsConsumed.map((f) => f.toMap()).toList(),
+    };
+    
+    dailyHistory.insert(0, daySummary); // Add to start of list
+    clear();
   }
 
   // Get totals

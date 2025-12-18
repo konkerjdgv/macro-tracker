@@ -6,8 +6,11 @@ import 'screens/history_screen.dart';
 import 'screens/settings_screen.dart';
 import 'logic/storage.dart';
 
+import 'package:intl/date_symbol_data_local.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('es_ES', null);
   await StorageService.loadDailyIntake(); // Carga datos guardados
   runApp(const MyFoodApp());
 }
