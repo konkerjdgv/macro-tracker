@@ -55,7 +55,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                 DropdownButton<FoodCategory>(
                   value: dialogCategory,
                   isExpanded: true,
-                  items: FoodCategory.values.map((c) => DropdownMenuItem(value: c, child: Text(c.name.toUpperCase()))).toList(),
+                  items: FoodCategory.values.map((c) => DropdownMenuItem(value: c, child: Text(c.displayName.toUpperCase()))).toList(),
                   onChanged: (val) => setDialogState(() => dialogCategory = val ?? dialogCategory),
                 ),
               ],
@@ -136,7 +136,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: ChoiceChip(
-                      label: Text(category.name.toUpperCase()),
+                      label: Text(category.displayName.toUpperCase()),
                       selected: isSelected,
                       selectedColor: Colors.blueAccent,
                       labelStyle: TextStyle(

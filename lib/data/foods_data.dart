@@ -7,7 +7,20 @@ enum FoodCategory {
   grains,
   dairy,
   fats,
-  others,
+  others;
+
+  String get displayName {
+    switch (this) {
+      case FoodCategory.meats: return "Carnes";
+      case FoodCategory.vegetables: return "Vegetales";
+      case FoodCategory.fruits: return "Frutas";
+      case FoodCategory.grains: return "Cereales";
+      case FoodCategory.dairy: return "Lácteos";
+      case FoodCategory.fats: return "Grasas";
+      case FoodCategory.others: return "Otros";
+      default: return name;
+    }
+  }
 }
 
 class FoodItem {
