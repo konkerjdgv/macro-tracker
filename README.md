@@ -1,16 +1,47 @@
-# my_food_app
+# 🍽️ Rastreador de Macros (My Food App)
 
-A new Flutter project.
+Aplicación para rastrear calorías y macronutrientes diarios, desarrollada con Flutter.
 
-## Getting Started
+## 📱 Características
 
-This project is a starting point for a Flutter application.
+- ✅ Seguimiento de calorías, proteínas, carbohidratos y grasas
+- ✅ Base de datos de alimentos predefinidos (Pollo, Arroz, Frutas, etc.)
+- ✅ Avatar dinámico que cambia según tu consumo (¡Musculoso con proteína!)
+- ✅ Configuración de metas personalizadas (Ganar músculo / Perder peso)
+- ✅ Persistencia local de datos
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Cómo empezar
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Este proyecto es una aplicación de Flutter.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Requisitos
+- Flutter SDK
+- Android Studio / VS Code con extensiones de Flutter
+
+### Instalación Local
+
+1. Clona el repositorio:
+```bash
+git clone https://github.com/konkerjdgv/macro-tracker.git
+```
+
+2. Obtén las dependencias:
+```bash
+flutter pub get
+```
+
+3. Ejecuta la aplicación:
+```bash
+flutter run
+```
+
+## 🎯 Uso
+
+1. **Configuración inicial**: Ve a ajustes y selecciona tu objetivo (Ganar músculo o Perder peso).
+2. **Agregar alimentos**: Toca en "Registrar Comida" y elige de la lista.
+3. **Ver progreso**: Observa las barras de progreso y los mensajes de tu avatar en la pantalla principal.
+
+## 📄 Licencia
+
+MIT License - Libre para uso personal y comercial
+
