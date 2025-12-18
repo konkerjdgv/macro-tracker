@@ -49,6 +49,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }
               },
             ),
+            const Spacer(),
+            const Center(
+              child: Text(
+                "Versión: 1.0.0.1",
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+            ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
